@@ -1,0 +1,9 @@
+{
+  "version": "v1",
+  "packages": {
+    "@ludens-reklame/rubics-app-express": {
+      "signature": "45a73e95f821a241d262e4a379c45035",
+      "file": true
+    }
+  }
+}
