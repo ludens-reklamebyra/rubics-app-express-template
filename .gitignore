@@ -12,6 +12,7 @@ lerna-debug.log*
 /dist
 /dist-ssr
 /.yalc
+yalc.lock
 *.local
 
 # Editor directories and files
