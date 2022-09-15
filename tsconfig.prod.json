@@ -4,7 +4,7 @@
   "exclude": [".husky", ".parcel-cache", "dist", "public", "node_modules", "test", "src", "lib/**/*.mock.ts", "lib/**/*.test.ts"],
   "compilerOptions": {
     /* Build options */
-    "jsx": "react",
+    "jsx": "react-jsx",
     "sourceMap": true,
     "declaration": true                       /* Generates corresponding '.d.ts' file. */,
     "declarationMap": true                    /* Generates a sourcemap for each corresponding '.d.ts' file. */,

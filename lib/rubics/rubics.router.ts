@@ -14,9 +14,18 @@ const rubicsRouter = express();
 
 rubicsRouter.get('/install', install);
 rubicsRouter.get('/install/callback', installCallback);
-rubicsRouter.use(setConfigToCtx);
-rubicsRouter.use('/components', authorizeWebhook, rubicsComponentsRouter);
-rubicsRouter.use('/webhooks', authorizeWebhook, rubicsWebhooksRouter);
-rubicsRouter.use('/dashboard', authorize, dashboardRoutes);
+rubicsRouter.use(
+  '/components',
+  authorizeWebhook,
+  setConfigToCtx,
+  rubicsComponentsRouter
+);
+rubicsRouter.use(
+  '/webhooks',
+  authorizeWebhook,
+  setConfigToCtx,
+  rubicsWebhooksRouter
+);
+rubicsRouter.use('/dashboard', authorize, setConfigToCtx, dashboardRoutes);
 
 export default rubicsRouter;

@@ -4,7 +4,13 @@
 import { IRubicsComponentProps } from '../../lib/types/rubics-components.js';
 import { APP_NAME } from '../../lib/utils/constants.js';
 
-interface ComponentState {
+export interface IRubicsComponentConfig {
+  id: string;
+  store: string;
+  props: string;
+}
+
+export interface IRubicsComponentState {
   store: Pick<IRubicsComponentProps, 'pageContext'>;
   props: Omit<IRubicsComponentProps, 'pageContext'>;
   container: HTMLElement;
@@ -12,19 +18,20 @@ interface ComponentState {
 
 const appName = APP_NAME.replace('-', '_');
 const capitalizeAppName = appName.toUpperCase();
-export const createComponentConfig = (name: string) =>
-  ({
-    store: '_STORE',
-    props: `__${capitalizeAppName}_${name.toUpperCase()}__`,
-    id: `${appName}-${name}`,
-  } as { [key: string]: any });
+export const createComponentConfig = (
+  name: string
+): IRubicsComponentConfig => ({
+  store: '_STORE',
+  props: `__${capitalizeAppName}_${name.toUpperCase()}__`,
+  id: `${APP_NAME.toLowerCase()}-${name.toLowerCase()}`,
+});
 
-export const getComponentState = (name: string): ComponentState => {
+export const getComponentState = (name: string): IRubicsComponentState => {
   try {
     const config = createComponentConfig(name);
     return {
-      store: window[config.store] as any,
-      props: window[config.props] as any,
+      store: window[config.store as any] as any,
+      props: window[config.props as any] as any,
       container: document.getElementById(config.id)!,
     };
   } catch (e) {

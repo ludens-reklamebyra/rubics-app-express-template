@@ -9,7 +9,7 @@
   "dashboardUrl": "http://localhost:2000/rubics/dashboard",
   "name": "MyApp",
   "description": "Basic app for rubics",
-  "logo": "https://www.logo.url",
+  "logo": "https://res.cloudinary.com/rubics/image/upload/h_80/f_auto/ifhopc66oudbnbzvesnd.png",
   "url": "https://www.rubics-vp.com",
   "settings": [{
     "name": "setting",
@@ -27,10 +27,10 @@
     {
       "key": "component",
       "value": {
-        "name": "jobs",
+        "name": "my-app-mycomponent",
         "label": "MyComponent",
         "icon": "layout",
-        "renderUrl": "http://localhost:2000/rubics/components/MyComponent",
+        "renderUrl": "http://localhost:2000/rubics/components/my-component",
         "props": []
       }
     }

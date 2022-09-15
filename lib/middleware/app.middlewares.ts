@@ -28,12 +28,17 @@ export async function setConfigToCtx(
   _res: Response,
   next: NextFunction
 ) {
-  const site = req.rubics.site || String(req.query.site);
-  const config = await req.models.Config.findOne({ site });
-  if (!config) throw new RubicsError(404, 'siteNotFound');
-  req.state.config = config;
-  req.rubics.token = config.token;
-  await next();
+  try {
+    const site = req.rubics.site || String(req.query.site);
+    if (!site) throw new RubicsError(404, 'siteNotSet');
+    const config = await req.models.Config.findOne({ site });
+    if (!config) throw new RubicsError(404, 'siteNotFound');
+    req.state.config = config;
+    req.rubics.token = config.token;
+    await next();
+  } catch (e) {
+    next(e);
+  }
 }
 
 export function initRequestState(

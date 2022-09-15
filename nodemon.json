@@ -1,6 +1,6 @@
 {
   "watch": ["lib", "src/components"],
   "ext": "ts,tsx",
-  "ignore": ["node_modules", "*.test.ts", "*.mock.ts"],
+  "ignore": ["node_modules", "*.test.ts", "*.mock.ts", "src/components"],
   "exec": "node --loader ts-node/esm ./lib/server.ts"
 }

@@ -14,7 +14,7 @@ const plugins: PluginOption[] = [react()];
 if (!watch) {
   plugins.push(viteCompression());
 } else {
-  plugins.push(livereload({ delay: 500 }));
+  plugins.push(livereload({ watch: 'public', delay: 1000 }));
 }
 
 // https://vitejs.dev/config/
@@ -27,11 +27,7 @@ export default defineConfig({
           (obj, folder) => ({
             ...obj,
             [folder]: resolve(componentsRoot, folder, 'index.tsx'),
-            [`${folder}Css`]: resolve(
-              componentsRoot,
-              folder,
-              'MyComponent.css'
-            ),
+            [`${folder}Css`]: resolve(componentsRoot, folder, `${folder}.css`),
           }),
           {}
         ),
@@ -40,7 +36,7 @@ export default defineConfig({
         ? {
             entryFileNames: 'js/[name].js',
             chunkFileNames: 'js/[name].js',
-            assetFileNames: 'assets/[name].[ext]',
+            assetFileNames: 'js/[name].[ext]',
           }
         : undefined,
     },

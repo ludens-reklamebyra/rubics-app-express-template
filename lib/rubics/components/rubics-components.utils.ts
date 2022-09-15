@@ -1,4 +1,5 @@
 import { Request } from 'express';
+import { IRubicsComponentConfig } from '../../../src/utils/rubics-components.js';
 import { IRubicsComponentProps } from '../../types/rubics-components.js';
 import { IRubicsComponentBody } from '../../types/rubics.js';
 import { APP_URL } from '../../utils/constants.js';
@@ -24,13 +25,13 @@ export interface IRubicsComponentHtmlOptions<T> {
 }
 
 export const createRubicsComponentHtml = <T>(
-  propsKey: string,
+  config: IRubicsComponentConfig,
   { file, script, css, content, store }: IRubicsComponentHtmlOptions<T>
 ) => `
   <script type="module" crossorigin src="${APP_URL}/${file}">
   </script>
   <script rel="modulepreload" src="${APP_URL}/${script}"></script>
   <link rel="stylesheet" href="${APP_URL}/${css}"/>
-  <div id="rubics_app_component">${content}</div>
-  <script>var ${propsKey}=${JSON.stringify(store)};</script>
+  <div id="${config.id}">${content}</div>
+  <script>var ${config.props}=${JSON.stringify(store)};</script>
 `;

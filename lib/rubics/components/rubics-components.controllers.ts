@@ -16,6 +16,11 @@ export let postComponentsRender =
     try {
       const body = req.body as IRubicsComponentBody;
       const store = createRubicsComponentStore(req);
+
+      // todo: Clear import cache in some way when running in development
+      // const Component = await import(
+      //   `../../../src/components/${name}/${name}.js`
+      // );
       const content = ReactDOM.renderToString(
         React.createElement(MyComponent, {
           ...(extendStore ? extendStore(req) : {}),
@@ -29,7 +34,7 @@ export let postComponentsRender =
       const cssSrc = `${src}/${name}.css`;
       const config = createComponentConfig(name);
       const module = manifest[indexSrc];
-      const html = createRubicsComponentHtml(config.props, {
+      const html = createRubicsComponentHtml(config, {
         file: module.file,
         css: manifest[cssSrc].file,
         script: manifest[module.imports[0]].file,

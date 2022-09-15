@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import { FC, useContext } from 'react';
 import { IRubicsComponentProps } from '../../../lib/types/rubics-components.js';
 import {
   ComponentContext,
@@ -17,7 +17,7 @@ function ComponentItem() {
   const props = useContext(ComponentContext);
   return (
     <div className="rubics-app-component">
-      Simple component from site {props.config.site}
+      Simple component from site {props.config.site} as
     </div>
   );
 }

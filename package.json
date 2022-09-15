@@ -11,8 +11,6 @@
     "dev": "nodemon",
     "web": "vite build --watch",
     "build": "vite build && tsc --project tsconfig.prod.json",
-    "storybook": "npx storybook dev -p 9004",
-    "build-storybook": "storybook build",
     "test": "vitest",
     "test:ui": "vitest --ui --api 9527",
     "test:run": "vitest run",

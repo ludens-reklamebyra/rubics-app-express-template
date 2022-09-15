@@ -24,7 +24,7 @@ describe('components', () => {
       expect(html).to.match(/<script type="module" crossorigin src="/);
       expect(html).to.match(/<script rel="modulepreload" src="/);
       expect(html).to.match(
-        /<div id="rubics_app_component"><div class="rubics-app-component">/
+        /<div id="my-app-mycomponent"><div class="rubics-app-component">/
       );
       expect(html).to.match(/<script>var __MY_APP_MYCOMPONENT__={"appUrl":/);
     });
