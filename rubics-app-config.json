@@ -1,25 +1,36 @@
 {
   "categories": [],
   "redirectUris": [
-    "http://localhost:2505/rubics/install",
-    "http://localhost:2505/rubics/install/callback"
+    "http://localhost:2000/rubics/install",
+    "http://localhost:2000/rubics/install/callback"
   ],
-  "identifier": "teamtailor",
-  "installUrl": "http://localhost:2505/rubics/install",
-  "dashboardUrl": "http://localhost:2505/rubics/dashboard",
-  "name": "Teamtailor",
-  "description": "Hent teamtailor jobber og link til ønskede Rubics sider.",
-  "logo": "https://blog.teamtailor.com/hubfs/A_MGFjZjlkZDY2YjhlM2JmORsoIslVQ6CDjf_9dvZuYY_TkXUbXs0KgcBOH4jNS3vKoWsUmjKS3N1D6-0_tMP3CqN5V-n_I1XxWkdTQXG25yoWHUxmiOedvjl24x85IyUeqGwbpxAwe4TsvB32_rPw61B5Q5v6ZzFCh3_r6uos6WBq76kdE8-BwizLhY3X6hTXZOsjNi8IP7diJl-c81nE6g==-2.svg",
-  "url": "https://www.teamtailor.com",
-  "settings": [],
+  "identifier": "my-app",
+  "installUrl": "http://localhost:2000/rubics/install",
+  "dashboardUrl": "http://localhost:2000/rubics/dashboard",
+  "name": "MyApp",
+  "description": "Basic app for rubics",
+  "logo": "https://www.logo.url",
+  "url": "https://www.rubics-vp.com",
+  "settings": [{
+    "name": "setting",
+    "type": "string",
+    "label": "Felt for setting"
+  }],
   "config": [
+    {
+      "key": "webhook:appSettingsUpdate",
+      "value": {
+        "url": "http://localhost:2000/rubics/webhooks/app-settings-update",
+        "immediate": true
+      }
+    },
     {
       "key": "component",
       "value": {
         "name": "jobs",
         "label": "MyComponent",
         "icon": "layout",
-        "renderUrl": "http://localhost:2505/rubics/components/MyComponent",
+        "renderUrl": "http://localhost:2000/rubics/components/MyComponent",
         "props": []
       }
     }

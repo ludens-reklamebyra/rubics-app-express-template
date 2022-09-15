@@ -8,7 +8,6 @@ import livereload from 'rollup-plugin-livereload';
 const watch = process.argv.includes('--watch');
 const componentsRoot = resolve(__dirname, 'src', 'components');
 const components = readdirSync(componentsRoot);
-console.log(components);
 
 const plugins: PluginOption[] = [react()];
 
