@@ -12,7 +12,7 @@ export const PORT: number =
 export const MONGO_CONNECTION_STRING =
   process.env.MONGO_CONNECTION_STRING || '';
 
-export const APP_NAME = 'teamtailor';
+export const APP_NAME = 'my-app';
 export const CLIENT_ID = process.env.CLIENT_ID || '';
 export const CLIENT_SECRET = process.env.CLIENT_SECRET || '';
 export const SCOPES = ['read:content'];

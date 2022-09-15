@@ -10,7 +10,7 @@ export interface IManifestInput {
 
 export interface IManifest {
   'src/dashboard/index.tsx': IManifestInput;
-  'src/components/Component/index.tsx': IManifestInput;
+  'src/components/MyComponent/index.tsx': IManifestInput;
   [key: string]: IManifestInput;
 }
 

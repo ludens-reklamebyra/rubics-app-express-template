@@ -1,48 +1,47 @@
 import { Request, Response } from 'express';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
-import Component from '../../../src/components/Component/Component.js';
-import { IClientContextProps } from '../../../src/components/Component/context/ComponentContext.js';
+import MyComponent from '../../../src/components/MyComponent/MyComponent.js';
+import { createComponentConfig } from '../../../src/utils/rubics-components.js';
 import { IRubicsComponentBody } from '../../types/rubics.js';
-import { APP_URL } from '../../utils/constants.js';
 import { manifest } from '../../utils/manifest.js';
+import {
+  createRubicsComponentHtml,
+  createRubicsComponentStore,
+} from './rubics-components.utils.js';
 
-export let getComponentsComponent = async (req: Request, res: Response) => {
-  try {
-    const body = req.body as IRubicsComponentBody;
-    req.query = body.query;
+export let postComponentsRender =
+  (name: string, extendStore?: (req: Request) => object) =>
+  async (req: Request, res: Response) => {
+    try {
+      const body = req.body as IRubicsComponentBody;
+      const store = createRubicsComponentStore(req);
+      const content = ReactDOM.renderToString(
+        React.createElement(MyComponent, {
+          ...(extendStore ? extendStore(req) : {}),
+          ...store,
+          pageContext: body.pageContext,
+        })
+      );
 
-    const search = new URLSearchParams(body.query).toString();
-    const props: Omit<IClientContextProps, 'pageContext'> = {
-      appUrl: APP_URL,
-      config: req.state.config.toJSON() as any,
-      search,
-    };
-    const content = ReactDOM.renderToString(
-      React.createElement(Component, {
-        ...props,
-        pageContext: body.pageContext,
-      })
-    );
+      const src = `src/components/${name}`;
+      const indexSrc = `${src}/index.tsx`;
+      const cssSrc = `${src}/${name}.css`;
+      const config = createComponentConfig(name);
+      const module = manifest[indexSrc];
+      const html = createRubicsComponentHtml(config.props, {
+        file: module.file,
+        css: manifest[cssSrc].file,
+        script: manifest[module.imports[0]].file,
+        content,
+        store,
+      });
 
-    const module = manifest['src/components/Component/index.tsx'];
-    const css = manifest['src/components/Component/component.css'].file;
-    const script = manifest[module.imports[0]].file;
-
-    res.json({
-      html: `
-      <script type="module" crossorigin src="${APP_URL}/${module.file}">
-      </script>
-      <script rel="modulepreload" src="${APP_URL}/${script}"></script>
-      <link rel="stylesheet" href="${APP_URL}/${css}"/>
-      <div id="rubics_app_component">${content}</div>
-      <script>var __RUBICS_APP_COMPONENT__=${JSON.stringify(props)};</script>
-    `,
-    });
-  } catch (e: any) {
-    console.error('App error', e);
-    res.json({
-      html: `<h2>Teamtailor APP feilet</h2><p>${e.message}</p>`,
-    });
-  }
-};
+      res.json({ html });
+    } catch (e: any) {
+      console.error('App error', name, e);
+      res.json({
+        html: `<h2>MyComponent feilet</h2><p>${e.message}</p>`,
+      });
+    }
+  };

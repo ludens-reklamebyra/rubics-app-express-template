@@ -17,9 +17,9 @@
       "key": "component",
       "value": {
         "name": "jobs",
-        "label": "Teamtailorjobber",
+        "label": "MyComponent",
         "icon": "layout",
-        "renderUrl": "http://localhost:2505/rubics/components/jobs",
+        "renderUrl": "http://localhost:2505/rubics/components/MyComponent",
         "props": []
       }
     }

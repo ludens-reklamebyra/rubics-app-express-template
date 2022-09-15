@@ -1,11 +1,11 @@
 import React, { FC, useContext } from 'react';
+import { IRubicsComponentProps } from '../../../lib/types/rubics-components.js';
 import {
   ComponentContext,
   ComponentProvider,
-  IClientContextProps,
 } from './context/ComponentContext.js';
 
-const Component: FC<IClientContextProps> = (props) => {
+const MyComponent: FC<IRubicsComponentProps> = (props) => {
   return (
     <ComponentProvider value={props}>
       <ComponentItem />
@@ -22,4 +22,4 @@ function ComponentItem() {
   );
 }
 
-export default Component;
+export default MyComponent;

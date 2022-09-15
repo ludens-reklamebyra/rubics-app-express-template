@@ -1,8 +1,11 @@
 import express from 'express';
-import { getComponentsComponent } from './rubics-components.controllers.js';
+import { postComponentsRender } from './rubics-components.controllers.js';
 
 const rubicsComponentsRouter = express();
 
-rubicsComponentsRouter.post('/component', getComponentsComponent);
+rubicsComponentsRouter.post(
+  '/my-component',
+  postComponentsRender('MyComponent')
+);
 
 export default rubicsComponentsRouter;

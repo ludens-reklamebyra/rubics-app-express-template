@@ -1,3 +1,4 @@
+import { readdirSync } from 'fs';
 import { resolve } from 'path';
 import { defineConfig, PluginOption } from 'vite';
 import react from '@vitejs/plugin-react';
@@ -6,6 +7,8 @@ import livereload from 'rollup-plugin-livereload';
 
 const watch = process.argv.includes('--watch');
 const componentsRoot = resolve(__dirname, 'src', 'components');
+const components = readdirSync(componentsRoot);
+console.log(components);
 
 const plugins: PluginOption[] = [react()];
 
@@ -21,8 +24,18 @@ export default defineConfig({
     rollupOptions: {
       input: {
         dashboard: resolve(__dirname, 'src', 'dashboard', 'index.tsx'),
-        component: resolve(componentsRoot, 'Component', 'index.tsx'),
-        componentCss: resolve(componentsRoot, 'Component', 'component.css'),
+        ...components.reduce(
+          (obj, folder) => ({
+            ...obj,
+            [folder]: resolve(componentsRoot, folder, 'index.tsx'),
+            [`${folder}Css`]: resolve(
+              componentsRoot,
+              folder,
+              'MyComponent.css'
+            ),
+          }),
+          {}
+        ),
       },
       output: watch
         ? {
