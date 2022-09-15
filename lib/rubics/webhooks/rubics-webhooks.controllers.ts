@@ -6,7 +6,7 @@ interface SettingsPayload {
   settings: Partial<IConfig>;
 }
 
-const KEYS: (keyof IConfig)[] = [];
+const KEYS: (keyof IConfig)[] = ['setting'];
 const toSet = (payload: SettingsPayload) => {
   const body: Partial<IConfig> = {};
   for (const _key in payload.settings) {

@@ -1,4 +1,4 @@
-import { rest } from '@ludens-reklame/vitest-mockify';
+import { rest } from '@ludens-reklame/vitest-mockify/dist/RestMock.js';
 import {
   mockRubicsStorefrontPageId,
   mockRubicsStorefrontPages,

@@ -11,7 +11,7 @@ import rubicsApp, {
 import apiRouter from './api/api.router.js';
 import cors from './config/cors.js';
 import errorHandler from './config/error.js';
-import { initMongooseModels } from './config/mongoose.js';
+import { connectToDatabase, initMongooseModels } from './config/mongoose.js';
 import session from './config/session.js';
 import rubicsRouter from './rubics/rubics.router.js';
 import { initRequestState, onInstall } from './middleware/app.middlewares.js';
@@ -27,6 +27,7 @@ import {
   SCOPES,
 } from './utils/constants.js';
 
+connectToDatabase();
 const app = express();
 
 app.set('view engine', 'html');

@@ -1,11 +1,8 @@
 import { Request, Response } from 'express';
-import { vi } from 'vitest';
-import {
-  ExpressMock,
-  MongooseMock,
-  rest,
-  RestMock,
-} from '@ludens-reklame/vitest-mockify';
+import { vi, MockContext } from 'vitest';
+import { ExpressMock } from '@ludens-reklame/vitest-mockify/dist/ExpressMock.js';
+import { MongooseMock } from '@ludens-reklame/vitest-mockify/dist/MongooseMock.js';
+import { RestMock } from '@ludens-reklame/vitest-mockify/dist/RestMock.js';
 import rubicsApp from '@ludens-reklame/rubics-app-express';
 import { initMongooseModels } from '../lib/config/mongoose.js';
 import { mockConfig, mockConfigId } from '../lib/models/Config/config.mock.js';
@@ -45,14 +42,19 @@ export const mockExpress = new ExpressMock<Request, Response, typeof vi.fn>(
     }),
     initRequestState,
     initMongooseModels,
-    async (req, _res, next) => {
+    async (req, res, next) => {
       req.state.config = mockConfig({ _id: mockConfigId });
       req.rubics.site = req.state.config.site;
       req.rubics.token = req.state.config.token;
+      res.render = vi.fn() as any;
+      res.json = vi.fn() as any;
+      res.send = vi.fn() as any;
       return next();
     },
   ],
   vi.fn
 );
 
-export { rest };
+export const toSpy = <T extends (...args: any) => any>(
+  fn: T
+): MockContext<Parameters<T>, ReturnType<T>> => fn as any;

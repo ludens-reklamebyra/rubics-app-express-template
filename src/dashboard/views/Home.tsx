@@ -6,7 +6,7 @@ import { TightBlock } from '../style-guide/Content';
 export default function Home() {
   useEffect(() => {
     new AppBar({
-      title: 'Teamtailor',
+      title: 'Rubics APP',
       logo: "javascript:alert('XSS');",
       breadcumbs: [],
     });
@@ -14,18 +14,8 @@ export default function Home() {
 
   return (
     <StyledBlock hugTop>
-      <h1>Teamtailor</h1>
-      <p>
-        Teamtailor brukes i sammarbeid med Rubics til å vise aktive jobber og
-        tilknytte sider.
-      </p>
-      <h2>Filtre</h2>
-      <p>Skjul/vis filtre som vises ut mot kunde</p>
-      <h2>Jobber</h2>
-      <p>
-        Søk opp jobber i Teamtailor og tilknytt en rubicsside for å overstyre
-        link på kort
-      </p>
+      <h1>Rubics APP</h1>
+      <p>Dette er dashbordet til Appen.</p>
     </StyledBlock>
   );
 }

@@ -7,17 +7,7 @@ describe('App middleware', () => {
     const next = vi.fn();
     const { req, res } = mockExpress.context();
     initRequestState(req, res, next);
+    expect(req.state).toBeTypeOf('object');
     expect(next).toHaveBeenCalledOnce();
-  });
-  it('should populate page data on job', async () => {
-    const { req, res } = await mockExpress.contextWithMiddlewares();
-    const next = vi.fn();
-    req.state.job = (await Job.findOne({}))!;
-    await populateRubicsPageToJob()(req, res, next);
-
-    expect(next).toHaveBeenCalledOnce();
-    expect(req.state.job).toBeTruthy();
-    expect(req.state.job.page).toBeTruthy();
-    expect(req.state.job.page).to.have.property('title');
   });
 });

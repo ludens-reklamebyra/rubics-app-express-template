@@ -1,6 +1,6 @@
-import { describe, expect, it, MockContext, vi } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { renderDashboard } from './dashboard.utils.js';
-import { mockExpress } from '../../../test/vitest.mock.js';
+import { mockExpress, toSpy } from '../../../test/vitest.mock.js';
 
 const url = 'http://localhost:2000/dashboard';
 
@@ -10,10 +10,9 @@ describe('Web dashboard', () => {
     const { req, res } = await mockExpress.contextWithMiddlewares({ url });
     res.json = json;
     await renderDashboard(req, res, {});
-    const body = (res.json as unknown as MockContext<any, any>).calls[0];
-    expect(body).to.match(/src="\/dashboard\.[a-f\d]{8}\.js"/);
-    expect(body).to.match(/window\['store']=\{"/);
-    expect(body).to.match(/<div id="root"><\/div>/);
-    // todo: Fix test
+    const [key, store] = toSpy(res.render).calls[0];
+    expect(key).to.equal('dashboard');
+    expect(store).to.be.an.instanceof(Object);
+    expect((store as any).script).toBeTruthy();
   });
 });

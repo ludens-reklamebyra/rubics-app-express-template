@@ -1,11 +1,11 @@
-import { describe, it } from 'vitest';
-import { mockExpress } from '../../test/vitest.mock.js';
+import { describe, it, expect } from 'vitest';
+import { mockExpress, toSpy } from '../../test/vitest.mock.js';
 import { ping } from './api.controllers';
 
 describe('API', () => {
-  it('should ping and return pong', () => {
-    const { req, res } = mockExpress.context();
+  it('should ping and return pong', async () => {
+    const { req, res } = await mockExpress.contextWithMiddlewares();
     ping(req, res);
-    // todo Fix test
+    expect(toSpy(res.send).calls[0][0]).to.equal('pong');
   });
 });

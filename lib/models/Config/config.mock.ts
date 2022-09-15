@@ -8,7 +8,7 @@ export const mockConfig = (override: Partial<IConfigLean> = {}) =>
     _id: new mongoose.Types.ObjectId(),
     name: 'config',
     site: 'site',
-    token: 'token',
+    token: 'token'.toString(),
     scopes: [SCOPES],
     setting: 'setting',
     ...override,

@@ -14,20 +14,22 @@ export const EncryptedString = {
 };
 
 function aesEncrypt(state: string, secret = CLIENT_SECRET): string {
-  if (!state) return '';
-  const iv = crypto.randomBytes(aes_iv_length);
-  const cipher = crypto.createCipheriv(
-    aes_algorithm,
-    Buffer.from(secret, 'base64'),
-    iv
-  );
-  const encrypted = Buffer.concat([cipher.update(state), cipher.final()]);
-  return encrypted.toString('hex') + aes_split_char + iv.toString('hex');
+  try {
+    const iv = crypto.randomBytes(aes_iv_length);
+    const cipher = crypto.createCipheriv(
+      aes_algorithm,
+      Buffer.from(secret, 'base64'),
+      iv
+    );
+    const encrypted = Buffer.concat([cipher.update(state), cipher.final()]);
+    return encrypted.toString('hex') + aes_split_char + iv.toString('hex');
+  } catch (e) {
+    return 'invalid';
+  }
 }
 
 function aesDecrypt(state: string, secret = CLIENT_SECRET): string {
   try {
-    if (!state) return '';
     const [encrypted, iv] = state
       .split(aes_split_char)
       .map((x) => Buffer.from(x, 'hex'));

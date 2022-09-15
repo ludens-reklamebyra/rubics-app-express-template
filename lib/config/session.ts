@@ -13,7 +13,7 @@ if (process.env.SSO_DOMAIN) {
   cookie.domain = process.env.SSO_DOMAIN;
 }
 
-const expressSession = session({
+const expressSession: any = session({
   proxy: true,
   secret: process.env.SESSION_SECRET || '',
   resave: false,

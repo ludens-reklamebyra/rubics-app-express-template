@@ -12,7 +12,9 @@ export async function editConfig(
     req.state.config = (await req.models.Config.findOneAndUpdate(
       { _id: req.state.config._id },
       {
-        $set: body,
+        $set: {
+          setting: body.setting,
+        },
       },
       {
         new: true,

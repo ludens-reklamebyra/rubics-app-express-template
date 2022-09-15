@@ -29,5 +29,5 @@ export function createDashboardStore(store: InputStore) {
 export function getRuntimeAndScript() {
   const script = manifest['src/dashboard/index.tsx'].file;
   const runtime = manifest['src/dashboard/index.tsx'].imports[0];
-  return { script: `/${script}`, runtime: `/${manifest[runtime].file}` };
+  return { script, runtime: manifest[runtime].file };
 }
