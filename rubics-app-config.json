@@ -30,7 +30,7 @@
         "name": "my-app-mycomponent",
         "label": "MyComponent",
         "icon": "layout",
-        "renderUrl": "http://localhost:2000/rubics/components/my-component",
+        "renderUrl": "http://localhost:2000/rubics/components/mycomponent",
         "props": []
       }
     }

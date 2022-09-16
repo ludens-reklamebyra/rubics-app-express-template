@@ -14,7 +14,7 @@ const plugins: PluginOption[] = [react()];
 if (!watch) {
   plugins.push(viteCompression());
 } else {
-  plugins.push(livereload({ watch: 'public', delay: 1000 }));
+  plugins.push(livereload({ watch: 'public' }));
 }
 
 // https://vitejs.dev/config/

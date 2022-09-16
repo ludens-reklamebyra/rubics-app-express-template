@@ -14,7 +14,7 @@ export default function Home() {
 
   return (
     <StyledBlock hugTop>
-      <h1>Rubics APP 2</h1>
+      <h1>Rubics APP</h1>
       <p>Dette er dashbordet til Appen.</p>
     </StyledBlock>
   );

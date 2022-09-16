@@ -8,7 +8,7 @@ describe('components', () => {
   describe('/jobs', () => {
     it('should render jobs as html and respond with object', async () => {
       const { req, res } = await mockExpress.contextWithMiddlewares({
-        url: `${APP_URL}/rubics/components/my-component`,
+        url: `${APP_URL}/rubics/components/mycomponent`,
         body: {
           site: { name: 'site' },
           timestamp: 1662978668,

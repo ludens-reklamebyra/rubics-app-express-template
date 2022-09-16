@@ -1,14 +1,16 @@
 import { Request, Response } from 'express';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
-import MyComponent from '../../../src/components/MyComponent/MyComponent.js';
 import { createComponentConfig } from '../../../src/utils/rubics-components.js';
 import { IRubicsComponentBody } from '../../types/rubics.js';
+import { IS_DEV } from '../../utils/constants.js';
 import { manifest } from '../../utils/manifest.js';
 import {
   createRubicsComponentHtml,
   createRubicsComponentStore,
 } from './rubics-components.utils.js';
+
+let devReFetchCounter = 0;
 
 export let postComponentsRender =
   (name: string, extendStore?: (req: Request) => object) =>
@@ -16,13 +18,16 @@ export let postComponentsRender =
     try {
       const body = req.body as IRubicsComponentBody;
       const store = createRubicsComponentStore(req);
+      let path = `../../../src/components/${name}/${name}.tsx`;
+      if (IS_DEV) {
+        // Changes the import to refetch the component for SSR and hot-reload.
+        // Issues with memory leak in local environment. Is not a problem in production.
+        path += `?c=${devReFetchCounter++}`;
+      }
 
-      // todo: Clear import cache in some way when running in development
-      // const Component = await import(
-      //   `../../../src/components/${name}/${name}.js`
-      // );
+      const Component = await import(path);
       const content = ReactDOM.renderToString(
-        React.createElement(MyComponent, {
+        React.createElement(Component.default, {
           ...(extendStore ? extendStore(req) : {}),
           ...store,
           pageContext: body.pageContext,
