@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { IRubicsComponentConfig } from '../../../src/utils/rubics-components.js';
+import { IRubicsComponentConfig } from '../../utils/rubics-components.js';
 import { IRubicsComponentProps } from '../../types/rubics-components.js';
 import { IRubicsComponentBody } from '../../types/rubics.js';
 import { APP_URL } from '../../utils/constants.js';

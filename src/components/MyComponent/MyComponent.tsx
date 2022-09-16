@@ -1,5 +1,5 @@
 import React, { FC, useContext } from 'react';
-import { IRubicsComponentProps } from '../../../lib/types/rubics-components.js';
+import type { IRubicsComponentProps } from '../../../lib/types/rubics-components.js';
 import {
   ComponentContext,
   ComponentProvider,

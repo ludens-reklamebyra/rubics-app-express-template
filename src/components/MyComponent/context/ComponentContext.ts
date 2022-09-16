@@ -1,6 +1,6 @@
 import React from 'react';
-import { IRubicsComponentProps } from '../../../../lib/types/rubics-components.js';
-import { IRubicsComponentBody } from '../../../../lib/types/rubics.js';
+import type { IRubicsComponentProps } from '../../../../lib/types/rubics-components.js';
+import type { IRubicsComponentBody } from '../../../../lib/types/rubics.js';
 
 export const ComponentContext = React.createContext<IRubicsComponentProps>({
   pageContext: {} as IRubicsComponentBody['pageContext'],

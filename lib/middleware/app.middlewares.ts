@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { TokenResponse } from '@ludens-reklame/rubics-app-sdk';
-import { RubicsError } from '../../../rubics-app-sdk/lib/index.js';
+import { TokenResponse, RubicsError } from '@ludens-reklame/rubics-app-sdk';
 
 export const onInstall = async (
   req: Request,
