@@ -15,6 +15,7 @@ export const EncryptedString = {
 
 function aesEncrypt(state: string, secret = CLIENT_SECRET): string {
   try {
+    if (!state) return state;
     const iv = crypto.randomBytes(aes_iv_length);
     const cipher = crypto.createCipheriv(
       aes_algorithm,
