@@ -7,7 +7,7 @@ export default function useSimplePortal(
   const { Portal, isOpen, openPortal, closePortal } = usePortal(opts);
 
   const handleToggle = useCallback(
-    (e) => {
+    (e: any) => {
       if (isOpen) {
         closePortal(e);
       } else {

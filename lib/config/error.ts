@@ -1,35 +1,46 @@
-import { RubicsError } from '@ludens-reklame/rubics-app-sdk';
-import { Request, NextFunction, Response } from 'express';
+import { NextFunction, Request, Response } from 'express';
+import mongodb from 'mongodb';
+import mongoose from 'mongoose';
+import { LogLevel } from '../config/logger.js';
+import { ApiError } from './error/ApiError.js';
+import MongoError from './error/MongoError.js';
+import { NotFoundError, RequestError } from './error/RequestError.js';
 
-export default function errorHandler(
-  err: RubicsError | { name: string; message: string; code: number } | Error,
-  _req: Request,
+type ErrorType =
+  | RequestError
+  | ApiError
+  | mongoose.Error
+  | mongodb.MongoServerError
+  | Error
+  | unknown;
+
+export default function error(
+  error: ErrorType,
+  req: Request,
   res: Response,
-  _: NextFunction
+  next: NextFunction
 ) {
-  if (err instanceof RubicsError) {
-    if (err.code > 499) {
-      console.error(JSON.stringify(err, null, 2));
-      console.error(err);
-    } else {
-      console.info(JSON.stringify(err, null, 2));
-    }
-    return res.status(err.code).json(err.toObject());
+  if (res.headersSent) {
+    return next(error);
   }
-  if (err instanceof Error) {
-    console.error(err);
-    return res.status(500).json({ status: 500, message: err.message });
-  }
-  if (
-    err &&
-    typeof err === 'object' &&
-    'name' in err &&
-    err.name === 'MulterError'
+  if (error instanceof RequestError || error instanceof NotFoundError) {
+    error.res(res);
+  } else if (error instanceof ApiError) {
+    error.toRequestError(req).res(res);
+  } else if (error instanceof Error) {
+    new RequestError(req, 500, error.message, {
+      level: LogLevel.Error,
+      error,
+    }).res(res);
+  } else if (
+    error instanceof mongoose.Error ||
+    error instanceof mongodb.MongoServerError
   ) {
-    console.error(err);
-    return res.status(500).json(err);
+    new MongoError(req, error).res(res);
+  } else {
+    new RequestError(req, 500, 'Fatal error', {
+      level: LogLevel.Error,
+      error,
+    }).res(res);
   }
-
-  console.error(err);
-  return res.status(500).json({ status: 500, message: 'Fatal error' });
 }

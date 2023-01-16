@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import styled from 'styled-components';
 import Text from '@ludens-reklame/rubics-theme/dist/components/Text';
 import Block from '@ludens-reklame/rubics-theme/dist/components/Block';
@@ -27,13 +27,15 @@ export function ContentHeader({
 }: Props) {
   return (
     <StyledBlock>
-      <ButtonLink outlined href={href}>
-        Tilbake
-      </ButtonLink>
-      <TextEllipsis element="h1" variant="display2">
-        {title}
-      </TextEllipsis>
-      {children}
+      <>
+        <ButtonLink outlined href={href}>
+          Tilbake
+        </ButtonLink>
+        <TextEllipsis element="h1" variant="display2">
+          {title}
+        </TextEllipsis>
+        {children}
+      </>
     </StyledBlock>
   );
 }

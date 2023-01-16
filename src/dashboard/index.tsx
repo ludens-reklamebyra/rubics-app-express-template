@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom';
 import Bridge from '@ludens-reklame/rubics-app-bridge';
 import Theme from '@ludens-reklame/rubics-app-bridge/dist/actions/Theme';

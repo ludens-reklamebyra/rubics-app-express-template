@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import { FC, useContext } from 'react';
 import type { IRubicsComponentProps } from '../../../lib/types/rubics-components.js';
 import {
   ComponentContext,

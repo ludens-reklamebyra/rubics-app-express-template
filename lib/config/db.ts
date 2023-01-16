@@ -1,10 +1,9 @@
 import { Request, NextFunction, Response } from 'express';
 import mongoose from 'mongoose';
 import { Config } from '../models/Config/config.js';
-import { IS_DEV } from '../utils/constants.js';
+import { IS_DEV, MONGO_CONNECTION_STRING } from '../utils/constants.js';
 
 (mongoose as any).Promise = global.Promise;
-const MONGO_CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING || '';
 
 export function connectToDatabase() {
   mongoose.connect(MONGO_CONNECTION_STRING, (err) => {
@@ -19,12 +18,9 @@ export function connectToDatabase() {
   });
 }
 
-export function initMongooseModels(
-  req: Request,
-  _res: Response,
-  next: NextFunction
-) {
+export default (req: Request, _res: Response, next: NextFunction) => {
   try {
+    req.state = {} as Request['state'];
     req.models = {
       Config,
     };
@@ -32,4 +28,4 @@ export function initMongooseModels(
   } catch (e) {
     next(e);
   }
-}
+};

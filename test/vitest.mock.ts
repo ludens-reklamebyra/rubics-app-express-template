@@ -4,14 +4,11 @@ import { ExpressMock } from '@ludens-reklame/vitest-mockify/dist/ExpressMock.js'
 import { MongooseMock } from '@ludens-reklame/vitest-mockify/dist/MongooseMock.js';
 import { RestMock } from '@ludens-reklame/vitest-mockify/dist/RestMock.js';
 import rubicsApp from '@ludens-reklame/rubics-app-express';
-import { initMongooseModels } from '../lib/config/mongoose.js';
+import db from '../lib/config/db.js';
 import { mockConfig, mockConfigId } from '../lib/models/Config/config.mock.js';
 import { initTestDatabase } from './mock/models.mock.js';
 import { restHandlers } from './mock/rest.mock.js';
-import {
-  initRequestState,
-  onInstall,
-} from '../lib/middleware/app.middlewares.js';
+import { onInstall } from '../lib/config/app.js';
 import {
   APP_NAME,
   APP_URL,
@@ -40,8 +37,7 @@ export const mockExpress = new ExpressMock<Request, Response, typeof vi.fn>(
       rubicsUrl: RUBICS_URL,
       scopes: SCOPES,
     }),
-    initRequestState,
-    initMongooseModels,
+    db,
     async (req, res, next) => {
       req.state.config = mockConfig({ _id: mockConfigId });
       req.rubics.site = req.state.config.site;

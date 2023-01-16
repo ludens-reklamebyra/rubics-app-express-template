@@ -1,5 +1,16 @@
 import { NextFunction, Request, Response } from 'express';
 import { TokenResponse, RubicsError } from '@ludens-reklame/rubics-app-sdk';
+import rubicsApp from '@ludens-reklame/rubics-app-express';
+import {
+  APP_NAME,
+  APP_URL,
+  CLIENT_ID,
+  CLIENT_SECRET,
+  DEV_SITE,
+  IS_DEV,
+  RUBICS_URL,
+  SCOPES,
+} from '../utils/constants.js';
 
 export const onInstall = async (
   req: Request,
@@ -40,11 +51,15 @@ export async function setConfigToCtx(
   }
 }
 
-export function initRequestState(
-  req: Request,
-  _res: Response,
-  next: NextFunction
-) {
-  req.state = {} as Request['state'];
-  next();
-}
+export default rubicsApp({
+  onInstall: onInstall as any,
+  development: IS_DEV,
+  developmentSite: DEV_SITE,
+  clientId: CLIENT_ID,
+  clientSecret: CLIENT_SECRET,
+  appName: APP_NAME,
+  appUrl: APP_URL,
+  appPath: 'rubics',
+  rubicsUrl: RUBICS_URL,
+  scopes: SCOPES,
+});

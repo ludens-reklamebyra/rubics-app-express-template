@@ -1,6 +1,6 @@
 import { authorizeApi } from '@ludens-reklame/rubics-app-express';
 import express from 'express';
-import { setConfigToCtx } from '../../middleware/app.middlewares.js';
+import { setConfigToCtx } from '../../config/app.js';
 import publicRouter from './public/public.router.js';
 import configRouter from './config/config.router.js';
 

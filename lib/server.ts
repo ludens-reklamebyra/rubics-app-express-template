@@ -1,65 +1,49 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import expressStatic from 'express-static-gzip';
-import cookie from 'cookie-parser';
 import ejs from 'ejs';
-import rubicsApp, {
+import {
   authorize,
   initExpressWithClusters,
 } from '@ludens-reklame/rubics-app-express';
 
 import apiRouter from './api/api.router.js';
+import cookie from './config/cookie.js';
 import cors from './config/cors.js';
-import errorHandler from './config/error.js';
-import { connectToDatabase, initMongooseModels } from './config/mongoose.js';
+import error from './config/error.js';
+import db, { connectToDatabase } from './config/db.js';
+import helmet from './config/helmet.js';
+import id from './config/id.js';
+import morgan from './config/morgan.js';
+import nocache from './config/nocache.js';
 import session from './config/session.js';
 import rubicsRouter from './rubics/rubics.router.js';
-import { initRequestState, onInstall } from './middleware/app.middlewares.js';
-import {
-  APP_NAME,
-  APP_URL,
-  CLIENT_ID,
-  CLIENT_SECRET,
-  DEV_SITE,
-  IS_DEV,
-  PORT,
-  RUBICS_URL,
-  SCOPES,
-} from './utils/constants.js';
+import app from './config/app.js';
+import { PORT } from './utils/constants.js';
 
 connectToDatabase();
-const app = express();
+const server = express();
 
-app.set('view engine', 'html');
-app.engine('html', ejs.renderFile);
-app.set('trust proxy', true);
+server.set('view engine', 'html');
+server.engine('html', ejs.renderFile);
+server.set('trust proxy', true);
 
-app.use(cors);
-app.use(session);
-app.use(cookie(process.env.SSO_COOKIE_SECRET));
+server.use(nocache);
+server.use(helmet);
+server.use(id);
+server.use(morgan);
+server.use(cors);
+server.use(session);
+server.use(cookie);
 
-app.use(initRequestState);
-app.use(initMongooseModels);
-app.use(
-  rubicsApp({
-    onInstall: onInstall as any,
-    development: IS_DEV,
-    developmentSite: DEV_SITE,
-    clientId: CLIENT_ID,
-    clientSecret: CLIENT_SECRET,
-    appName: APP_NAME,
-    appUrl: APP_URL,
-    appPath: 'rubics',
-    rubicsUrl: RUBICS_URL,
-    scopes: SCOPES,
-  })
-);
+server.use(db);
+server.use(app);
 
-app.use('/api', bodyParser.json(), apiRouter);
-app.use('/rubics', bodyParser.json(), rubicsRouter);
+server.use('/api', bodyParser.json(), apiRouter);
+server.use('/rubics', bodyParser.json(), rubicsRouter);
 
-app.use(authorize);
-app.use(
+server.use(authorize);
+server.use(
   expressStatic('public', {
     index: false,
     enableBrotli: true,
@@ -67,6 +51,6 @@ app.use(
     extensions: ['br'],
   })
 );
-app.use(errorHandler);
+server.use(error);
 
-initExpressWithClusters(app, PORT);
+initExpressWithClusters(server, Number(PORT));

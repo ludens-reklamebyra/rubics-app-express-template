@@ -1,4 +1,4 @@
-import React, { FormHTMLAttributes, MouseEventHandler } from 'react';
+import { FormHTMLAttributes, MouseEventHandler } from 'react';
 import styled from 'styled-components';
 import { Button } from '@ludens-reklame/rubics-theme/dist/components/Button';
 import {

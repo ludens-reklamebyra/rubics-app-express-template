@@ -1,12 +1,12 @@
 import cors from 'cors';
-import { CORS_ALLOW_URLS } from '../utils/constants.js';
+import { CORS_ALLOW_URLS, IS_DEV } from '../utils/constants.js';
 
 export default cors({
   origin: function (
     origin: any,
     callback: (err: null | Error, success?: boolean) => any
   ) {
-    if (process.env.NODE_ENV !== 'production' || !origin) {
+    if (IS_DEV || !origin) {
       return callback(null, true);
     }
 

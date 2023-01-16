@@ -1,5 +1,6 @@
-import session, { SessionOptions } from 'express-session';
-import { IS_PROD } from '../utils/constants.js';
+import express from 'express';
+import expressSession, { SessionOptions } from 'express-session';
+import { DOMAIN, IS_PROD, SESSION_SECRET } from '../utils/constants.js';
 
 const cookie: SessionOptions['cookie'] = {
   secure: IS_PROD,
@@ -9,16 +10,16 @@ const cookie: SessionOptions['cookie'] = {
   maxAge: 3600000 * 24,
 };
 
-if (process.env.SSO_DOMAIN) {
-  cookie.domain = process.env.SSO_DOMAIN;
+if (DOMAIN) {
+  cookie.domain = DOMAIN;
 }
 
-const expressSession: any = session({
+const session = expressSession({
   proxy: true,
-  secret: process.env.SESSION_SECRET || '',
+  secret: SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
   cookie,
-});
+}) as express.RequestHandler;
 
-export default expressSession;
+export default session;

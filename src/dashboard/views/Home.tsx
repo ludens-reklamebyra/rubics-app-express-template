@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import styled from 'styled-components';
 import AppBar from '@ludens-reklame/rubics-app-bridge/dist/actions/AppBar';
 import { TightBlock } from '../style-guide/Content';

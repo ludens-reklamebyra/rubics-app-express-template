@@ -1,10 +1,6 @@
-import React from 'react';
-import { hydrateRoot } from 'react-dom/client';
+import { hydrate } from 'react-dom';
 import { getComponentState } from '../../utils/rubics-components.js';
 import MyComponent from './MyComponent.js';
 
 const { container, props, store } = getComponentState('MyComponent');
-hydrateRoot(
-  container,
-  <MyComponent {...props} pageContext={store.pageContext} />
-);
+hydrate(<MyComponent {...props} pageContext={store.pageContext} />, container);

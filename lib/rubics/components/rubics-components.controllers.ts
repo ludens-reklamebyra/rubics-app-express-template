@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/server';
 import { createComponentConfig } from '../../utils/rubics-components.js';
 import { IRubicsComponentBody } from '../../types/rubics.js';
-import { IS_DEV } from '../../utils/constants.js';
+import { IS_DEV, IS_TEST } from '../../utils/constants.js';
 import { manifest } from '../../utils/manifest.js';
 import {
   createRubicsComponentHtml,
@@ -19,7 +19,7 @@ export let postComponentsRender =
       const body = req.body as IRubicsComponentBody;
       const store = createRubicsComponentStore(req);
       let path = `../../../src/components/${name}/${name}.tsx`;
-      if (IS_DEV && !process.env.TEST) {
+      if (IS_DEV && !IS_TEST) {
         // Changes the import to refetch the component for SSR and hot-reload.
         // Issues with memory leak in local environment. Is not a problem in production.
         path += `?c=${devReFetchCounter++}`;

@@ -1,16 +1,20 @@
+import winston from 'winston';
 import {
   IConfigDocument,
   IConfigModel,
 } from '../models/Config/config.types.js';
 
+export interface IRequestForApp {
+  id: string;
+  logger: winston.Logger;
+  models: IRequestModels;
+  state: IRequestState;
+}
+
 export interface IRequestModels {
-  models: {
-    Config: IConfigModel;
-  };
+  Config: IConfigModel;
 }
 
 export interface IRequestState {
-  state: {
-    config: IConfigDocument;
-  };
+  config: IConfigDocument;
 }

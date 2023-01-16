@@ -1,6 +1,6 @@
 {
-  "watch": ["lib", "src/components"],
+  "watch": ["lib", ".env", "node_modules/@ludens-reklame/**/*"],
   "ext": "ts,tsx",
   "ignore": ["node_modules", "*.test.ts", "*.mock.ts", "src/components"],
-  "exec": "node --loader ts-node/esm ./lib/server.ts"
+  "exec": "ts-node --esm --swc --files ./lib/server.ts"
 }

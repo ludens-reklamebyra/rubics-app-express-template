@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { Provider } from '@ludens-reklame/rubics-theme';
 import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import styled from 'styled-components';

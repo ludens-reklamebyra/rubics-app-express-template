@@ -4,12 +4,14 @@
   "exclude": [".husky", ".parcel-cache", "dist", "public", "node_modules"],
   "compilerOptions": {
     /* Build options */
-    "jsx": "react",
+    "jsx": "react-jsx",
     "sourceMap": true,
     "declaration": true                       /* Generates corresponding '.d.ts' file. */,
     "declarationMap": true                    /* Generates a sourcemap for each corresponding '.d.ts' file. */,
     "skipLibCheck": true,
     "outDir": "./dist",                       /* Redirect output structure to the directory. */
+    "noEmit": true,
+    "incremental": true,
 
     /* Required options for type="module" */
     "target": "ES2021"                        /* Specify ECMAScript target version: 'ES3' (default), 'ES5', 'ES2015', 'ES2016', 'ES2017','ES2018' or 'ESNEXT'. */,
@@ -25,5 +27,9 @@
     "noUnusedLocals": true                    /* Report errors on unused locals. */,
     "noUnusedParameters": true                /* Report errors on unused parameters. */,
     "noImplicitReturns": true                 /* Report error when not all code paths in function return a value. */
+  },
+  "ts-node": {
+    "swc": true,
+    "files": true
   }
 }

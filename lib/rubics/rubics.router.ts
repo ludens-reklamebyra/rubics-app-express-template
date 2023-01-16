@@ -5,7 +5,7 @@ import {
   install,
   installCallback,
 } from '@ludens-reklame/rubics-app-express';
-import { setConfigToCtx } from '../middleware/app.middlewares.js';
+import { setConfigToCtx } from '../config/app.js';
 import rubicsComponentsRouter from './components/rubics-components.router.js';
 import dashboardRoutes from './dashboard/dashboard.routes.js';
 import rubicsWebhooksRouter from './webhooks/rubics-webhooks.router.js';
